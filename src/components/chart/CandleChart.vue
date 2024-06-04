@@ -1,4 +1,5 @@
 <template>
+    <h3>{{ currentItem }}</h3>
     <div id="chart"></div>
 </template>
 
@@ -43,6 +44,15 @@ const getAxios = () => {
                     height: 370,
                     width: 700,
                     background: "transparent",
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 250,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 50
+                        },
+                    }
                 },
                 xaxis: {
                     type: 'datetime',

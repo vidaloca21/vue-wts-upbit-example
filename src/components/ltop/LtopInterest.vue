@@ -27,10 +27,10 @@
       <tbody>
         <tr v-for="(message, code) in messages" :key="code" :id="code" @click.stop="selectItem">
           <td>{{ message?.code ?? '데이터 없음' }}</td>
-          <td>{{ message?.trade_price ?? 0 }}</td>
-          <td>{{ message?.change_price ?? 0 }}</td>
-          <td>{{ message?.change_rate ?? 0 }}</td>
-          <td>{{ message?.trade_volume ?? 0 }}</td>
+          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">{{ message?.trade_price.toLocaleString('ko-KR') ?? 0 }}</td>
+          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">{{ message?.change_price.toLocaleString('ko-KR') ?? 0 }}</td>
+          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">{{ message? (message.change_rate*100).toFixed(2) : 0 }} %</td>
+          <td>{{ message?.trade_volume.toLocaleString('ko-KR') ?? 0 }}</td>
           <td>0</td>
           <td>0</td>
           <td>0</td>
@@ -70,5 +70,25 @@ onUnmounted(() => {
 #table-data {
   width: 700px;
   table-layout: fixed;
+  font-size: 14px;
+  text-align: right;
+  th:nth-child(3) {
+    width: 70px;
+  }
+  th:nth-child(5) {
+    width: 110px;
+  }
+  th:nth-child(6),
+  th:nth-child(7),
+  th:nth-child(8),
+  th:nth-child(9) {
+    width: 63px;
+  }
+}
+.onRise {
+    color: blue;
+}
+.onFall {
+    color: red;
 }
 </style>

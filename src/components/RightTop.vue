@@ -18,16 +18,16 @@ import { ref } from 'vue';
 const currentTab = ref('RtopCurrent');
 const tabs = {
     RtopCurrent,
+    RtopBasic,
     RtopFinish,
     RtopTrade,
-    RtopBasic,
 }
 function getTabName(t) {
     const tabArr = [
         {tab: 'RtopCurrent', tabName: '현재가'},
+        {tab: 'RtopBasic', tabName: '차트'},
         {tab: 'RtopFinish', tabName: '체결가'},
         {tab: 'RtopTrade', tabName: '거래원'},
-        {tab: 'RtopBasic', tabName: '차트'},
     ]
     return tabArr.filter((elm) => elm.tab === t)[0].tabName
 }

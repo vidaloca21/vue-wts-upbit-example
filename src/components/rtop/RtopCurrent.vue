@@ -16,13 +16,13 @@
             </thead>
             <tbody>
                 <tr v-if="getCurrentItem">
-                    <td>{{ getCurrentItem.trade_price }}</td>
-                    <td>{{ getCurrentItem.opening_price }}</td>
-                    <td>{{ getCurrentItem.prev_closing_price }}</td>
-                    <td>{{ getCurrentItem.low_price }}</td>
-                    <td>{{ getCurrentItem.lowest_52_week_price }}</td>
-                    <td>{{ getCurrentItem.high_price }}</td>
-                    <td>{{ getCurrentItem.highest_52_week_price }}</td>
+                    <td>{{ getCurrentItem.trade_price.toLocaleString('ko-KR') }}</td>
+                    <td>{{ getCurrentItem.opening_price.toLocaleString('ko-KR') }}</td>
+                    <td>{{ getCurrentItem.prev_closing_price.toLocaleString('ko-KR') }}</td>
+                    <td>{{ getCurrentItem.low_price.toLocaleString('ko-KR') }}</td>
+                    <td>{{ getCurrentItem.lowest_52_week_price.toLocaleString('ko-KR') }}</td>
+                    <td>{{ getCurrentItem.high_price.toLocaleString('ko-KR') }}</td>
+                    <td>{{ getCurrentItem.highest_52_week_price.toLocaleString('ko-KR') }}</td>
                 </tr>
                 <tr v-else></tr>
             </tbody>
@@ -48,7 +48,8 @@ const getCurrentItem = computed(() => {
 
 <style scoped>
 table {
-    width: 80%;
+    width: 700px;
+    font-size: 15px;
 }
 th, td {
     text-align: right;
