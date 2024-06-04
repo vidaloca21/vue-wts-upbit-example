@@ -5,19 +5,23 @@
 <script setup>
 import axios from 'axios'
 import ApexCharts from 'apexcharts'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useItemStore } from '@/stores/itemStore'
 
-onMounted(() => {
-    getAxios();
-})
+const itemStore = useItemStore();
+const { currentItem } = storeToRefs(itemStore);
 
 const params = {
-    market: 'KRW-DOGE',
+    market: currentItem.value,
     to: '2024-06-03T00:00:00+09:00',
     count: 20,
     convertingPriceUnit: 'KRW',
 }
 const getAxios = () => {
+    if (!currentItem.value) {
+        return
+    }
     axios
         .get("https://api.upbit.com/v1/candles/days", {params})
         .then(function(response) {
@@ -56,6 +60,18 @@ const getAxios = () => {
         })
         .catch((error) => console.log(error) )
 }
+
+onMounted(() => {
+    getAxios();
+})
+watch(
+    ()=> currentItem.value,
+    () => {
+        $("#chart").empty()
+        params.market = currentItem.value;
+        getAxios();
+    }
+)
 </script>
 
 <style scoped>
