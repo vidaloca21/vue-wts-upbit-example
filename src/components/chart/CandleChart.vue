@@ -1,6 +1,8 @@
 <template>
-    <h3>{{ currentItem }}</h3>
-    <div id="chart"></div>
+    <div>
+        <h3>{{ currentItem }}</h3>
+        <div id="chart"></div>
+    </div>
 </template>
 
 <script setup>

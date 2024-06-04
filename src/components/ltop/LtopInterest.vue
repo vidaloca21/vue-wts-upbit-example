@@ -27,9 +27,17 @@
       <tbody>
         <tr v-for="(message, code) in messages" :key="code" :id="code" @click.stop="selectItem">
           <td>{{ message?.code ?? '데이터 없음' }}</td>
-          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">{{ message?.trade_price.toLocaleString('ko-KR') ?? 0 }}</td>
-          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">{{ message?.change_price.toLocaleString('ko-KR') ?? 0 }}</td>
-          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">{{ message? (message.change_rate*100).toFixed(2) : 0 }} %</td>
+          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">
+            {{ message?.trade_price.toLocaleString('ko-KR') ?? 0 }}
+          </td>
+          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">
+            <span v-if="message.change === 'RISE'">+</span>
+            <span v-if="message.change === 'FALL'">-</span>{{ message?.change_price.toLocaleString('ko-KR') ?? 0 }}
+          </td>
+          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">
+            <span v-if="message.change === 'RISE'">+</span>
+            <span v-if="message.change === 'FALL'">-</span>{{ message? (message.change_rate*100).toFixed(2) : 0 }} %
+          </td>
           <td>{{ message?.trade_volume.toLocaleString('ko-KR') ?? 0 }}</td>
           <td>0</td>
           <td>0</td>
