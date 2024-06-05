@@ -24,7 +24,6 @@
                     <td>{{ getCurrentItem.high_price.toLocaleString('ko-KR') }}</td>
                     <td>{{ getCurrentItem.highest_52_week_price.toLocaleString('ko-KR') }}</td>
                 </tr>
-                <tr v-else></tr>
             </tbody>
         </table>
     </div>

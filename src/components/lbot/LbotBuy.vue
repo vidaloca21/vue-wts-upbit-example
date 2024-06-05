@@ -41,12 +41,9 @@
 
 <script setup>
 import { useUserStore } from '@/stores/userStore'
-import { computed } from 'vue';
 
 const userStore = useUserStore();
 
-let balCash = computed(() => userStore.balance)
-let balCredit = computed(() => userStore.balance *2)
 </script>
 
 <style scoped>

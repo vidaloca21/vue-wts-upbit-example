@@ -61,6 +61,10 @@ const getAxios = () => {
                 },
                 plotOptions: {
                     candlestick: {
+                        colors: {
+                            upward: '#DB4455',
+                            downward: '#4491DB'
+                        },
                         wick: {
                             useFillColor: true,
                         }

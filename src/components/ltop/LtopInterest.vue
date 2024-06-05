@@ -94,9 +94,9 @@ onUnmounted(() => {
   }
 }
 .onRise {
-    color: blue;
+  color: #DB4455;
 }
 .onFall {
-    color: red;
+  color: #4491DB;
 }
 </style>
