@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive } from 'vue'
 
 export const useItemStore = defineStore('itemStore', () => {
-    const currentItem = ref('');
-    return { currentItem }
+  const currentItem = reactive({
+    code: '',
+    price: 0
+  })
+  return { currentItem }
 })

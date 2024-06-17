@@ -27,16 +27,25 @@
       <tbody>
         <tr v-for="(message, code) in messages" :key="code" :id="code" @click.stop="selectItem">
           <td>{{ message?.code ?? '데이터 없음' }}</td>
-          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">
+          <td
+            class="itemPrice"
+            :class="[{ onRise: message.change === 'RISE' }, { onFall: message.change === 'FALL' }]"
+          >
             {{ message?.trade_price.toLocaleString('ko-KR') ?? 0 }}
           </td>
-          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">
+          <td
+            :class="[{ onRise: message.change === 'RISE' }, { onFall: message.change === 'FALL' }]"
+          >
             <span v-if="message.change === 'RISE'">+</span>
-            <span v-if="message.change === 'FALL'">-</span>{{ message?.change_price.toLocaleString('ko-KR') ?? 0 }}
+            <span v-if="message.change === 'FALL'">-</span
+            >{{ message?.change_price.toLocaleString('ko-KR') ?? 0 }}
           </td>
-          <td :class="[{onRise: message.change === 'RISE'}, {onFall: message.change === 'FALL'}]">
+          <td
+            :class="[{ onRise: message.change === 'RISE' }, { onFall: message.change === 'FALL' }]"
+          >
             <span v-if="message.change === 'RISE'">+</span>
-            <span v-if="message.change === 'FALL'">-</span>{{ message? (message.change_rate*100).toFixed(2) : 0 }} %
+            <span v-if="message.change === 'FALL'">-</span
+            >{{ message ? (message.change_rate * 100).toFixed(2) : 0 }} %
           </td>
           <td>{{ message?.trade_volume.toLocaleString('ko-KR') ?? 0 }}</td>
           <td>0</td>
@@ -52,19 +61,29 @@
 <script setup>
 import { useSocketStore } from '@/stores/socketStore'
 import { useItemStore } from '@/stores/itemStore'
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
 const ticker = useSocketStore()
-const itemStore = useItemStore();
-
 const { messages } = storeToRefs(ticker)
 const { openSocket, closeSocket } = ticker
 
+const itemStore = useItemStore()
+const { currentItem } = itemStore
+
 const selectItem = (e) => {
-    itemStore.currentItem = e.target.closest("tr").id
+  currentItem.code = e.target.closest('tr').id
+  currentItem.price = +e.target
+    .closest('tr')
+    .querySelector('.itemPrice')
+    .innerText.replace(/,/g, '')
 }
 
+watch(messages, (newVal, oldVal) => {
+  if (newVal[currentItem.code] !== oldVal[currentItem.code]) {
+    currentItem.price = newVal[currentItem.code].trade_price
+  }
+})
 
 onMounted(() => {
   openSocket()
@@ -94,9 +113,9 @@ onUnmounted(() => {
   }
 }
 .onRise {
-  color: #DB4455;
+  color: #db4455;
 }
 .onFall {
-  color: #4491DB;
+  color: #4491db;
 }
 </style>

@@ -4,10 +4,24 @@ import { reactive, toRefs } from 'vue'
 let ws = undefined
 const ENDPOINT = 'wss://api.upbit.com/websocket/v1'
 const MARKET_INFO = JSON.stringify([
-    { ticket: "test" },
-    { type: "ticker", codes: ["KRW-BTC","KRW-ETH","KRW-WAVES","KRW-XEM","KRW-SOL","KRW-SHIB","KRW-DOGE", "KRW-XRP","KRW-STX","KRW-SAND"] },
-    { format: "DEFAULT" }
-    ])
+  { ticket: 'test' },
+  {
+    type: 'ticker',
+    codes: [
+      'KRW-BTC',
+      'KRW-ETH',
+      'KRW-WAVES',
+      'KRW-XEM',
+      'KRW-SOL',
+      'KRW-SHIB',
+      'KRW-DOGE',
+      'KRW-XRP',
+      'KRW-STX',
+      'KRW-SAND'
+    ]
+  },
+  { format: 'DEFAULT' }
+])
 
 export const useSocketStore = defineStore('socketStore', () => {
   const state = reactive({
