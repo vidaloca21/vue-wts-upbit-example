@@ -1,5 +1,9 @@
 <template>
   <div>
+    <!-- <div>
+      <input type="text" v-model="keyword" @keyup="searchItem" />
+      <button @click="getItem">검색</button>
+    </div> -->
     <div>
       <span>관심그룹</span>
       <select name="interestGroup" id="interestGroup">
@@ -8,7 +12,7 @@
       <button>등록/수정</button>
       <button>조회</button>
       <button @click="openSocket">연결</button>
-      <button @click="closeSocket">닫기</button>
+      <button @click="handleClose">닫기</button>
     </div>
     <table id="table-data">
       <thead>
@@ -63,6 +67,7 @@ import { useSocketStore } from '@/stores/socketStore'
 import { useItemStore } from '@/stores/itemStore'
 import { onMounted, onUnmounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useQueueStore } from '@/stores/queueStore'
 
 const ticker = useSocketStore()
 const { messages } = storeToRefs(ticker)
@@ -71,12 +76,23 @@ const { openSocket, closeSocket } = ticker
 const itemStore = useItemStore()
 const { currentItem } = itemStore
 
+const queueStore = useQueueStore()
+const { queue } = storeToRefs(queueStore)
+const { enqueue, dequeue, clear } = queueStore
+
 const selectItem = (e) => {
   currentItem.code = e.target.closest('tr').id
   currentItem.price = +e.target
     .closest('tr')
     .querySelector('.itemPrice')
     .innerText.replace(/,/g, '')
+  enqueue(currentItem.code)
+  console.log(queue.value)
+}
+
+const handleClose = () => {
+  closeSocket()
+  clear()
 }
 
 watch(messages, (newVal, oldVal) => {

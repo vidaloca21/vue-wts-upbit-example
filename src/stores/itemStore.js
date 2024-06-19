@@ -6,5 +6,6 @@ export const useItemStore = defineStore('itemStore', () => {
     code: '',
     price: 0
   })
+
   return { currentItem }
 })

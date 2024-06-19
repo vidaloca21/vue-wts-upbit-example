@@ -23,10 +23,10 @@
         </div>
         <div class="mt-4">
           <label for="itemCode" class="label-wd">종목코드</label>
-          <select name="itemCode">
-            <option :value="currentItem.code">{{ currentItem.code }}</option>
+          <select name="itemCode" v-model="selectedItem">
+            <option v-for="item in reversedQueue" :key="item" :value="item">{{ item }}</option>
           </select>
-          <input name="itemName" type="text" :value="currentItem.code" class="readonly" readonly />
+          <input name="itemName" type="text" :value="selectedItem" class="readonly" readonly />
         </div>
         <div class="mt-4">
           <label for="itemPrice" class="label-wd">단가</label>
@@ -63,13 +63,30 @@
 
 <script setup>
 import { useItemStore } from '@/stores/itemStore'
+import { useQueueStore } from '@/stores/queueStore'
 import { useUserStore } from '@/stores/userStore'
 import axios from 'axios'
-import { reactive } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, reactive, ref, watch } from 'vue'
 
 const userStore = useUserStore()
 const itemStore = useItemStore()
 const { currentItem } = itemStore
+
+const queueStore = useQueueStore()
+const { queue } = storeToRefs(queueStore)
+
+const reversedQueue = computed(() => {
+  return [...queue.value].reverse()
+})
+
+const selectedItem = ref('')
+
+watch(queue, () => {
+  if (reversedQueue.value.length > 0) {
+    selectedItem.value = reversedQueue.value[0]
+  }
+})
 
 const params = {
   markets: currentItem.code,
@@ -78,13 +95,14 @@ const params = {
 const getHoga = async () => {
   const res = await axios.get('https://api.upbit.com/v1/orderbook', { params })
   console.log(res.data[0])
+  console.log(1)
 }
 
 const orderForm = reactive({
   userName: userStore.userName,
   userAccount: userStore.userAccount,
   password: '',
-  itemCode: currentItem.code,
+  itemCode: '',
   itemPrice: 10000,
   itemQuantity: 1,
   isCredit: false
@@ -105,6 +123,7 @@ const orderBtnFn = (type, action) => {
 }
 
 const sendOrder = () => {
+  orderForm.itemCode = selectedItem.value // itemCode 업데이트
   console.log(orderForm)
 }
 </script>
