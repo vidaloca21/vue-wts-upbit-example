@@ -62,10 +62,10 @@
 </template>
 
 <script setup>
+import axios from 'axios'
 import { useItemStore } from '@/stores/itemStore'
 import { useQueueStore } from '@/stores/queueStore'
 import { useUserStore } from '@/stores/userStore'
-import axios from 'axios'
 import { storeToRefs } from 'pinia'
 import { computed, reactive, ref, watch } from 'vue'
 
@@ -95,7 +95,6 @@ const params = {
 const getHoga = async () => {
   const res = await axios.get('https://api.upbit.com/v1/orderbook', { params })
   console.log(res.data[0])
-  console.log(1)
 }
 
 const orderForm = reactive({

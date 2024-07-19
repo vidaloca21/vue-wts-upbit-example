@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <div class="">
-      <RouterLink to="/">Home</RouterLink> | 
+      <RouterLink to="/">Home</RouterLink> |
       <RouterLink to="/about">About</RouterLink>
     </div>
     <RouterView />
@@ -13,18 +13,42 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <style>
-body, p, h1, h2, h3, h4, h5, h6, menu, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
-    margin: 0;
-    padding: 0;
-    -webkit-text-size-adjust: 100%;
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+menu,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+select {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
 }
 body {
-  background: #E1E3E5;
+  background: #e1e3e5;
 }
 #container {
   width: 1400px;
   margin: 0 auto;
-  background: #FFF;
+  background: #fff;
   padding: 20px;
 }
 .content-wrapper {
@@ -32,7 +56,7 @@ body {
 }
 .active {
   background: #555;
-  color: #FFF
+  color: #fff;
 }
 .hidden {
   display: none;
@@ -49,5 +73,4 @@ body {
 .bg-yellow {
   background: #f8f8dd;
 }
-
 </style>

@@ -63,10 +63,10 @@
 </template>
 
 <script setup>
-import { useSocketStore } from '@/stores/socketStore'
-import { useItemStore } from '@/stores/itemStore'
 import { onMounted, onUnmounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useSocketStore } from '@/stores/socketStore'
+import { useItemStore } from '@/stores/itemStore'
 import { useQueueStore } from '@/stores/queueStore'
 
 const ticker = useSocketStore()
@@ -102,10 +102,11 @@ watch(messages, (newVal, oldVal) => {
 })
 
 onMounted(() => {
-  openSocket()
+  // openSocket()
 })
 onUnmounted(() => {
   closeSocket()
+  clear()
 })
 </script>
 

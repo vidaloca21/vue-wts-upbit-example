@@ -3,6 +3,7 @@
     <h3>{{ currentItem.code }}</h3>
     <div id="chart" ref="chartRef"></div>
   </div>
+  <div>{{ ticker }}</div>
 </template>
 
 <script setup>
@@ -20,7 +21,7 @@ const ticker = ref([])
 
 const params = {
   market: chartItem.value,
-  to: '2024-06-16T00:00:00+09:00',
+  to: '2024-06-18T00:00:00+09:00',
   count: 20,
   convertingPriceUnit: 'KRW'
 }
